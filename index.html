@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>她的权力原型 · 6题测出你的掌权女性基因</title>
+<style>
+  :root{
+    --pink1:#fff5f7; --pink2:#ffe3ec; --pink3:#ffc9da;
+    --ink:#2e2230; --ink2:#6b5d68; --gold:#b08d3f; --gold2:#d8b978;
+    --line:#f2dbe3; --card:#ffffff; --shadow:0 8px 28px rgba(180,120,140,.16);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:linear-gradient(180deg,var(--pink1) 0%,var(--pink2) 45%,#fff 100%);
+    color:var(--ink);min-height:100vh;line-height:1.7;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:20px 18px 60px}
+  .hide{display:none !important}
+
+  /* 封面 */
+  .cover{padding-top:34px;text-align:center}
+  .cover .tag{display:inline-block;font-size:12px;letter-spacing:3px;color:var(--gold);
+    border:1px solid var(--gold2);border-radius:20px;padding:4px 14px;margin-bottom:20px}
+  .cover h1{font-size:30px;line-height:1.35;margin:0 0 14px;font-weight:800;letter-spacing:1px}
+  .cover h1 span{color:#c2477a}
+  .cover .sub{font-size:15px;color:var(--ink2);margin-bottom:26px}
+  .caster{background:var(--card);border-radius:16px;padding:18px 16px;box-shadow:var(--shadow);text-align:left;margin-bottom:22px}
+  .caster h3{margin:0 0 10px;font-size:14px;color:var(--gold);letter-spacing:1px}
+  .caster table{width:100%;border-collapse:collapse;font-size:13px}
+  .caster td{padding:6px 0;border-bottom:1px dashed var(--line)}
+  .caster td:first-child{width:64px;font-weight:700;color:#c2477a}
+  .caster td:last-child{color:var(--ink2)}
+  .btn{display:block;width:100%;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700;
+    background:linear-gradient(90deg,#c2477a,#d97aa0);color:#fff;letter-spacing:1px;cursor:pointer;box-shadow:0 6px 18px rgba(194,71,122,.3)}
+  .btn:active{transform:scale(.98)}
+  .btn.ghost{background:#fff;color:#c2477a;border:1px solid #e9a9c1;box-shadow:none}
+  .tip{font-size:12px;color:#a2959f;margin-top:14px;text-align:center}
+
+  /* 答题 */
+  .bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 22px}
+  .bar>i{display:block;height:100%;background:linear-gradient(90deg,#c2477a,#d97aa0);transition:width .3s}
+  .qnum{font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
+  .qtext{font-size:18px;font-weight:700;margin:0 0 20px;line-height:1.6}
+  .opts{display:flex;flex-direction:column;gap:12px}
+  .opt{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;
+    font-size:14.5px;cursor:pointer;transition:.18s;display:flex;gap:10px;align-items:flex-start}
+  .opt:active{transform:scale(.98)}
+  .opt.on{border-color:#c2477a;background:#fff0f5;box-shadow:0 4px 14px rgba(194,71,122,.18)}
+  .opt b{color:#c2477a;flex-shrink:0}
+
+  /* 报告 */
+  .report h2{font-size:22px;text-align:center;margin:6px 0 4px}
+  .report .lead{text-align:center;color:var(--ink2);font-size:13px;margin-bottom:20px}
+  .gene{background:var(--card);border-radius:18px;padding:20px 18px;box-shadow:var(--shadow);margin-bottom:16px;text-align:center}
+  .gene .big{font-size:26px;font-weight:800;letter-spacing:1px}
+  .gene .big em{font-style:normal;color:#c2477a}
+  .gene .pct{font-size:13px;color:var(--gold);margin-top:6px;letter-spacing:1px}
+  .gene .declare{font-size:15px;color:var(--ink2);margin-top:12px;font-style:italic;border-top:1px dashed var(--line);padding-top:12px}
+  .sec{background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+  .sec h4{margin:0 0 10px;font-size:13px;color:var(--gold);letter-spacing:2px}
+  .sec p{margin:0;font-size:14px;color:#4a3d47}
+  .sec ul{margin:0;padding-left:18px}
+  .sec li{font-size:14px;margin-bottom:5px;color:#4a3d47}
+  .dim{margin-bottom:9px}
+  .dim span{font-size:12px;color:var(--ink2);display:flex;justify-content:space-between;margin-bottom:3px}
+  .dim i{display:block;height:7px;background:var(--line);border-radius:6px;overflow:hidden}
+  .dim i b{display:block;height:100%;background:linear-gradient(90deg,#c2477a,#e0a0bd)}
+  .two{display:flex;gap:10px}
+  .two>div{flex:1}
+  .klabel{font-size:12px;color:#c2477a;font-weight:700;margin-bottom:4px}
+
+  /* 人物卡 */
+  .cardbox{margin-bottom:18px}
+  .pcard{background:linear-gradient(160deg,#fff 0%,#fff6f9 100%);border:1.5px solid var(--line);
+    border-radius:20px;padding:18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .pcard .portrait{height:96px;border-radius:14px;background:linear-gradient(135deg,#fbe4ec,#f6d9e6);
+    display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:12px;border:1px dashed #e0a9c1}
+  .pcard .pname{font-size:20px;font-weight:800;text-align:center;letter-spacing:1px}
+  .pcard .prole{text-align:center;font-size:11.5px;color:var(--gold);letter-spacing:2px;margin-top:3px;margin-bottom:10px}
+  .pcard .pdeclare{text-align:center;font-size:13px;color:#c2477a;font-style:italic;
+    border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);padding:8px 0;margin-bottom:12px}
+  .pcard .blk{margin-bottom:10px}
+  .pcard .blk .bt{font-size:10.5px;letter-spacing:2px;color:var(--gold);margin-bottom:4px;font-weight:700}
+  .pcard .blk .bc{font-size:12.5px;color:#463a43;line-height:1.65}
+  .pcard .blk .bc em{font-style:normal;color:#c2477a;font-weight:700}
+  .path{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+  .path i{font-style:normal;font-size:11px;background:#fbe9f0;color:#a33c68;border-radius:8px;padding:2px 6px;white-space:nowrap}
+  .path s{text-decoration:none;color:#c9a7b6;font-size:10px}
+  .law{list-style:none;padding:0;margin:0}
+  .law li{font-size:12.5px;margin-bottom:4px;padding-left:16px;position:relative;color:#463a43}
+  .law li:before{content:"§";position:absolute;left:0;color:var(--gold);font-weight:700}
+  .brand{text-align:center;font-size:10.5px;color:#b3a4ad;letter-spacing:2px;margin-top:10px}
+  .acts{display:flex;gap:10px;margin-top:12px}
+  .acts button{flex:1;border-radius:12px;padding:12px;font-size:13.5px;font-weight:700;cursor:pointer;border:none}
+  .acts .s1{background:linear-gradient(90deg,#c2477a,#d97aa0);color:#fff}
+  .acts .s2{background:#fff;color:#c2477a;border:1px solid #e9a9c1}
+  .disclaimer{font-size:10.5px;color:#a2959f;text-align:center;margin-top:18px;line-height:1.6;padding:0 6px}
+  .restart{text-align:center;margin-top:16px}
+  .restart button{background:none;border:none;color:#a2959f;font-size:12.5px;text-decoration:underline;cursor:pointer}
+.flash{outline:3px dashed #c2185b;outline-offset:4px;transition:outline .3s}</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== 封面 ===== -->
+  <div id="cover" class="cover">
+    <div class="tag">POWER ARCHETYPES</div>
+    <h1>6题，测出你骨子里的<br><span>掌权女性基因</span></h1>
+    <div class="sub">不是性格测试，是权力基因检测<br>2分钟，知道你和谁同构</div>
+
+    <div class="caster">
+      <h3>五位掌权女性原型</h3>
+      <table>
+        <tr><td>执政者</td><td>武则天 · 我不争位置，我做位置本身</td></tr>
+        <tr><td>狩猎者</td><td>慈禧 · 我要的东西我自己去拿</td></tr>
+        <tr><td>炼金师</td><td>叶卡捷琳娜二世 · 我知道锁在哪</td></tr>
+        <tr><td>缪斯</td><td>伊丽莎白一世 · 我定义这张桌</td></tr>
+        <tr><td>守护者</td><td>维多利亚女王 · 我护住的才叫自己人</td></tr>
+      </table>
+    </div>
+
+    <button class="btn" onclick="start()">开始测评 · 约2分钟</button>
+    <div class="tip">6题 · 无需注册 · 不留任何信息</div>
+  </div>
+
+  <!-- ===== 答题 ===== -->
+  <div id="quiz" class="hide">
+    <div class="qnum" id="qnum">第 1 / 6 题</div>
+    <div class="bar"><i id="barin" style="width:0%"></i></div>
+    <div class="qtext" id="qtext"></div>
+    <div class="opts" id="opts"></div>
+  </div>
+
+  <!-- ===== 报告 ===== -->
+  <div id="report" class="report hide">
+    <h2>你的权力基因</h2>
+    <div class="lead">两种力量在你身上同时存在，比例决定打法</div>
+
+    <div class="gene">
+      <div class="big"><em id="mainName"></em> <span id="mainPct"></span></div>
+      <div class="pct">＋ <span id="subName"></span> <span id="subPct"></span></div>
+      <div class="declare" id="declare"></div>
+    </div>
+
+    <div class="sec">
+      <h4>五维力量配比</h4>
+      <div id="dims"></div>
+    </div>
+
+    <div class="sec">
+      <h4>力量底色</h4>
+      <p id="basecolor"></p>
+    </div>
+
+    <div class="two">
+      <div class="sec">
+        <h4>发光点</h4>
+        <ul id="shine"></ul>
+      </div>
+      <div class="sec">
+        <h4>消耗点</h4>
+        <ul id="drain"></ul>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h4>使用建议</h4>
+      <p id="advice"></p>
+    </div>
+
+    <div class="cardbox" id="cardbox"></div>
+
+    <div class="acts">
+      <button class="s1" onclick="saveAll()">保存报告</button>
+      <button class="s2" onclick="shareIt()">转发给同频的人</button>
+    </div>
+
+    <div class="restart"><button onclick="location.reload()">重新测一次</button></div>
+
+    <div class="disclaimer">
+      本测评仅供自我认知与娱乐参考，不构成任何心理诊断、职业建议或投资建议。<br>
+      《她的权力原型》· 历史简化表述，非史实考据
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============ 原型数据 ============ */
+const A = {
+  ruler:{
+    name:"执政者", who:"武则天", icon:"👑",
+    declare:"我不争位置，我做位置本身。",
+    base:"战略耐心、权力嗅觉、符号操控力。你习惯先看清全局再落子，能忍受漫长的潜伏期，一旦出手就要一次性改写规则。",
+    shine:["能在混乱中建立秩序","对权力流向极其敏感","关键时刻敢下重注"],
+    drain:["容易把所有事都收进自己手里","难以信任别人的执行力","长期紧绷，很少示弱"],
+    advice:"别亲自下场做每一件事。你的价值在定规则、定人选、定时机，不在亲自执行。把三件你最放不下的事交给别人做，你才真正开始掌权。",
+    path:["14岁入宫为才人","太宗逝后入感业寺为尼","655年立后，与高宗并称二圣","690年改唐为周，登基称帝","705年退位，终年82岁"],
+    law:["先拿实权，再谈名分","永远留一张底牌","让对手以为你只有三步棋","仪式感本身就是权力"],
+    books:[["《武则天传》","林语堂 —— 看她如何把争议变成统治资源"],["《女主天下》","蒙曼 —— 还原真实的权力路径而非宫斗好看"]],
+    ref:"把你当下困境的三个变量写下来：谁有决定权、谁掌握信息差、谁能随时退出。对照她从才人到称帝的每一次站队，你会发现她赢的不是运气，是提前两年布好了一个位置。"
+  },
+  hunter:{
+    name:"狩猎者", who:"慈禧太后", icon:"🏹",
+    declare:"我要的东西，我自己去拿。",
+    base:"目标锁定能力、时机判断、资源调动。你不等分配，你要的是在别人还在讨论规则的时候，你已经站到了拿结果的那一侧。",
+    shine:["行动快，不内耗","懂得借势和结盟","目标感极强，不会被情绪带走"],
+    drain:["容易把合作看成博弈","对长期信任投入不足","赢的时候代价常被忽略"],
+    advice:"你有拿结果的天赋，但要区分「拿到的」和「守得住的」。每完成一次重要夺取，问一句：这件事我留下了多少可持续的关系？",
+    path:["1852年入宫封兰贵人","1856年生载淳，晋懿贵妃","1861年辛酉政变，除顾命八大臣","1884年甲申易枢，独掌大权","实际统治47年"],
+    law:["先动手的人定义游戏规则","把敌人变成下属，比除掉更划算","不解释，只呈现结果","永远知道谁手里有兵"],
+    books:[["《慈禧统治时期》","[英]约翰·奥特维·布兰德 —— 外部视角看权力运作"],["《晚清七十年》","唐德刚 —— 理解她所处的结构性困局"]],
+    ref:"列出你今年真正想要的三个东西，然后标出「谁挡在路上」。她的方式不是抱怨挡路的人，而是换一条路、或者把挡路的人换到别的位置上去。"
+  },
+  alchemist:{
+    name:"炼金师", who:"叶卡捷琳娜二世", icon:"⚗",
+    declare:"我被困住过，所以我知道锁在哪。",
+    base:"逆境转化力、认知重构、自我重塑。你最擅长把被否定的经历重新编码成筹码，别人眼中的败局，在你手里是原材料的来源。",
+    shine:["能从失败中提炼方法论","适应力极强，跨文化无压力","自我更新速度快"],
+    drain:["过度依赖自己的复盘能力","容易反复咀嚼过去的伤","对「被看见」有隐性渴望"],
+    advice:"别把每一次痛苦都当成必须提炼的材料。有些事不需要被转化，只需要被放下。你的转化能力是天赋，不是义务。",
+    path:["1745年远嫁俄国，不懂俄语","在宫廷孤立中自学与结盟","1762年发动政变，废彼得三世","1762-1796在位，扩张至黑海","终身未再婚，掌控权力34年"],
+    law:["进入一个新环境，先学会它的语言","把孤立期当成准备期","合法性可以被制造出来","知识是权力的前置条件"],
+    books:[["《叶卡捷琳娜大帝》","罗伯特·K·马西 —— 拆解她的上位与治术"],["《论中国的专制主义》","她本人的通信与笔记 —— 看权力者如何思考"]],
+    ref:"写下你最不愿意提起的一段经历，然后问：它给了我什么别人没有的东西？她被嘲笑为「外国来的小媳妇」，恰恰是这种局外视角让她看得比谁都清楚。"
+  },
+  muse:{
+    name:"缪斯", who:"伊丽莎白一世", icon:"◈",
+    declare:"我不上谁的桌，我定义这张桌。",
+    base:"符号经营、舆论塑形、以退为进。你不靠硬碰硬取胜，你靠让自己成为那个无法被绕开的存在，让别人主动来找你、替你说话。",
+    shine:["极强的个人品牌意识","懂得用模糊争取空间","擅长让他人替你完成主张"],
+    drain:["真实需求常被自己的形象遮蔽","难以直接表达攻击性","长期维持形象的消耗巨大"],
+    advice:"你的模糊是一种武器，但用久了会连自己也说服。每年至少做一次明确的、不讨好的表态，把「她到底要什么」这个问题从别人心里彻底消除。",
+    path:["1533年出生，母亲被处死","被宣布为私生女，囚于伦敦塔","1558年25岁登基","1588年蒂尔伯里阅兵，亲赴前线","统治45年，终身未婚"],
+    law:["不表态本身就是一种表态","让自己成为不可替代的符号","用婚姻和联盟作筹码，而不是用掉","在关键时刻亲自出现"],
+    books:[["《伊丽莎白一世传》","艾莉森·韦尔 —— 看她如何经营「童贞女王」这一符号"],["《都铎王朝》","大卫·斯塔基 —— 理解她所处的险境"]],
+    ref:"问自己：我在团队里的「符号」是什么？别人提起我，第一反应是哪个词？她用一生经营「我只可能有一个丈夫，那就是英格兰」这句话——你有没有属于自己的那一句？"
+  },
+  guardian:{
+    name:"守护者", who:"维多利亚女王", icon:"❋",
+    declare:"我护住的，才叫自己人。",
+    base:"体系维护、责任驱动、长期主义。你的权力不来自夺取，而来自所有人默认你会守住底线。你是那个在崩塌时最后离开的人，也因此成为最不可替代的人。",
+    shine:["极高的可信度","能扛住长期压力","手下的人愿意为你卖命"],
+    drain:["容易把责任全揽在自己身上","对「背叛」的感受格外强烈","休息时会有强烈负罪感"],
+    advice:"守护者最大的风险是被消耗殆尽。学会把「护住别人」和「护住自己」放在同一个优先级上——你倒下的那天，你护的人一个都护不住。",
+    path:["1819年出生，幼年丧父","1837年18岁登基","1840年与阿尔伯特亲王成婚","1861年丧夫后长期寡居","1901年逝世，统治63年"],
+    law:["先建立秩序，再谈扩张","让守规矩的人得到好处","把家庭和国家放在同一套逻辑里","持续在场本身就是力量"],
+    books:[["《维多利亚女王》","简·里德利 —— 看她如何把私人情感变成公共资本"],["《维多利亚时代》","A.N.威尔逊 —— 理解她塑造的时代气质"]],
+    ref:"列出你正在守护的三样东西：团队、家人、还是某个承诺。然后诚实回答：你有没有给它们设过边界？她的统治秘诀不是强硬，是让所有人相信她每天都在，从不缺席。"
+  }
+};
+
+/* ============ 6道题（对准高智高自尊职业女性真实战场） ============ */
+const Q = [
+  {q:"会上领导刚说完一个明显有漏洞的方案，全场沉默，你会？",
+   o:[["A","守护者"],["B","执政者"],["C","缪斯"],["D","炼金师"]],
+   t:["会后私下递一份修正方案给他","当场举手，用数据指出问题所在","先说「这个方向很好」，再把你的补充包装成「延展」","不发言，但在笔记本上记下所有漏洞"]},
+  {q:"一个不如你但更会汇报的同事，拿到了你应得的晋升名额，你会？",
+   o:[["A","执政者"],["B","狩猎者"],["C","守护者"],["D","炼金师"]],
+   t:["找直属上级复盘晋升标准，要求明确差距","不动声色，开始接触猎头和外部机会","主动约他喝咖啡，学他的汇报逻辑","加倍干活，让下一次结果无可辩驳"]},
+  {q:"你带的项目被跨部门同事抢了功劳，大老板在全员邮件里只表扬了他，你会？",
+   o:[["A","狩猎者"],["B","守护者"],["C","缪斯"],["D","炼金师"]],
+   t:["整理时间线证据，抄送给大老板和对方上级","下次合作前先发邮件确认分工，抄送双方领导","当面恭喜他，后续所有协作只走邮件留痕","算了，当买个教训，以后绕开这个人"]},
+  {q:"深夜加班回家，伴侣抱怨你「眼里只有工作」，你会？",
+   o:[["A","守护者"],["B","执政者"],["C","缪斯"],["D","炼金师"]],
+   t:["耐心解释这个项目对你的重要性，请求理解","反问：如果我是一个男人，你还会这么说吗","第二天早起做顿早餐，用行动弥补","不说话，但心里开始重新评估这段关系"]},
+  {q:"空降的新领导第一次1v1就问你「未来三年什么打算」，你会？",
+   o:[["A","执政者"],["B","狩猎者"],["C","缪斯"],["D","炼金师"]],
+   t:["给出清晰三年规划，同时表明你需要哪些资源","反问他「您对这个部门的优先目标是什么」，先摸牌","说一个保守版本，等信任建立后再透露真实野心","如实说「我想做到您的位子」，看他反应"]},
+  {q:"你已在现位置做到顶尖，但往上一步要牺牲大量个人时间，你会？",
+   o:[["A","执政者"],["B","狩猎者"],["C","守护者"],["D","缪斯"]],
+   t:["要那个位置，然后重新设计自己的效率系统","接受挑战，但跟老板谈条件：远程+加薪30%","暂时不动，先把身体和生活稳住","跳槽去同等量级但文化更好的公司"]}
+];
+
+/* ============ 逻辑 ============ */
+let idx=0, score={ruler:0,hunter:0,alchemist:0,muse:0,guardian:0}, ans=[];
+const K2P={ruler:"ruler",hunter:"hunter",alchemist:"alchemist",muse:"muse",guardian:"guardian"};
+
+function start(){ idx=0; score={ruler:0,hunter:0,alchemist:0,muse:0,guardian:0}; ans=[];
+  document.getElementById('cover').classList.add('hide');
+  document.getElementById('report').classList.add('hide');
+  document.getElementById('quiz').classList.remove('hide');
+  render(); window.scrollTo(0,0);
+}
+function render(){
+  const item=Q[idx];
+  document.getElementById('qnum').textContent=`第 ${idx+1} / ${Q.length} 题`;
+  document.getElementById('barin').style.width=(idx/Q.length*100)+'%';
+  document.getElementById('qtext').textContent=item.q;
+  const box=document.getElementById('opts'); box.innerHTML='';
+  item.o.forEach((pair,i)=>{
+    const d=document.createElement('div'); d.className='opt';
+    d.innerHTML=`<b>${pair[0]}</b><span>${item.t[i]}</span>`;
+    d.onclick=()=>pick(i,d);
+    box.appendChild(d);
+  });
+  window.scrollTo(0,0);
+}
+function pick(i,el){
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+  score[Q[idx].o[i][1]] += 1;
+  ans[idx]=Q[idx].o[i][0];
+  setTimeout(()=>{
+    if(idx<Q.length-1){ idx++; render(); }
+    else{ showReport(); }
+  },260);
+}
+
+function showReport(){
+  document.getElementById('quiz').classList.add('hide');
+  document.getElementById('report').classList.remove('hide');
+  document.getElementById('barin').style.width='100%';
+
+  const arr=Object.keys(score).sort((a,b)=>score[b]-score[a]);
+  const main=arr[0], sub=arr[1];
+  const total=score[main]+score[sub]||1;
+  const basePct = 52 + Math.round((score[main]/(score[main]+score[sub]||1))*18);
+  const mainPct = Math.min(basePct,74), subPct = 100-mainPct;
+  const M=A[main], S=A[sub];
+
+  document.getElementById('mainName').textContent=M.name;
+  document.getElementById('mainPct').textContent=mainPct+'%';
+  document.getElementById('subName').textContent=S.name;
+  document.getElementById('subPct').textContent=subPct+'%';
+  document.getElementById('declare').textContent='「'+M.declare+'」';
+
+  const max=Math.max(...Object.values(score),1);
+  document.getElementById('dims').innerHTML=arr.map(k=>`<div class="dim">
+    <span><em style="font-style:normal;color:#c2477a">${A[k].name}·${A[k].who}</em><i style="display:inline;color:#a2959f">${A[k].icon}</i></span>
+    <i><b style="width:${Math.max(score[k]/max*100,12)}%"></b></i></div>`).join('');
+
+  document.getElementById('basecolor').textContent=M.base;
+  document.getElementById('shine').innerHTML=M.shine.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('drain').innerHTML=M.drain.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('advice').textContent=M.advice;
+
+  document.getElementById('cardbox').innerHTML =
+     cardHTML(M,mainPct,'主原型') + cardHTML(S,subPct,'辅原型');
+  window.scrollTo(0,0);
+}
+
+function cardHTML(P,pct,role){
+  return `<div class="pcard" id="card_${P.name}">
+    <div class="portrait">${P.icon}</div>
+    <div class="pname">${P.who}</div>
+    <div class="prole">${P.name} · ${role} ${pct}%</div>
+    <div class="pdeclare">${P.declare}</div>
+    <div class="blk"><div class="bt">力量底色</div><div class="bc">${P.base}</div></div>
+    <div class="blk"><div class="bt">权力登顶 · 来时路</div><div class="bc path">
+      ${P.path.map((p,i)=>`<i>${p}</i>${i<P.path.length-1?'<s>›</s>':''}`).join('')}</div></div>
+    <div class="blk"><div class="bt">行为法条</div><div class="bc"><ul class="law">
+      ${P.law.map(l=>`<li>${l}</li>`).join('')}</ul></div></div>
+    <div class="blk"><div class="bt">参照书单</div><div class="bc">
+      ${P.books.map(b=>`<em>${b[0]}</em>（${b[1]}）`).join('<br>')}</div></div>
+    <div class="blk"><div class="bt">认知与行为参照</div><div class="bc">${P.ref}</div></div>
+    <div class="brand">她的权力原型 · POWER ARCHETYPES</div>
+  </div>`;
+}
+
+function saveAll(){
+  const t=document.getElementById('report');
+  if(!t){ alert('请先完成测评。'); return; }
+  t.classList.add('flash'); setTimeout(()=>t.classList.remove('flash'),600);
+  alert('已为你高亮报告区：\n长按图片可直接保存，或用手机截图（电源键+音量键）。\n两张人物卡都在这一屏内，截全即可。');
+}
+function shareIt(){
+  const txt=`我的权力基因：${document.getElementById('mainName').textContent}${document.getElementById('mainPct').textContent} ＋ ${document.getElementById('subName').textContent}${document.getElementById('subPct').textContent}。${document.getElementById('declare').textContent}\n6题测出你骨子里的掌权女性基因 →`;
+  if(navigator.share){ navigator.share({title:'她的权力原型',text:txt,url:location.href}).catch(()=>{}); }
+  else if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(()=>alert('文案已复制，去小红书/微信粘贴，再截图卡片一起发出去。')); }
+  else{ alert('请截图卡片保存后转发。'); }
+}
+
+/* ===== 启动：缺失此段会导致整页空白 ===== */
+(function boot(){
+  function start(){
+    try{ idx=0; ans={}; render(); }
+    catch(e){
+      document.body.insertAdjacentHTML('beforeend',
+        '<div style="position:fixed;left:0;right:0;bottom:0;padding:14px 16px;background:#c0392b;color:#fff;font-size:13px;z-index:9999">页面初始化异常：'+e.message+'</div>');
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start);
+  else start();
+})();
+</script>
+</body>
+</html>
